@@ -1,0 +1,93 @@
+﻿<Page x:Class="StorageApp.Pages.UserTasksPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:StorageApp.Pages" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UserTasksPage" MinWidth="900" MinHeight="600">
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Background" Value="#A669C8"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>   
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="35*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/background.png" />
+        </Grid.Background>
+
+        <StackPanel Orientation="Horizontal"  VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1">
+            <StackPanel Orientation="Horizontal" Margin="0,0,30,0">
+                    <StackPanel Margin="0,0,5,0">
+                    <Button Width="60" Height="60">
+                        <Button.Background>
+                            <ImageBrush Stretch="Fill" ImageSource="/Images/adm-icon.png"/>
+                        </Button.Background>
+                    </Button>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock FontSize="12">Администратор</TextBlock>
+                        <TextBlock FontSize="16">Иванов</TextBlock>
+                        <TextBlock FontSize="16">Иван</TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                <Button Margin="0,0,20,0" Width="200" Height="30">Задачи</Button>
+                <Button Margin="0,0,20,0" Width="200" Height="30">Рейтинг</Button>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <TextBlock FontFamily="News Cycle" FontSize="25">ZEROAIRLANE</TextBlock>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Margin="10,0,10,0" Background="#A669C8" Height="400">
+                <TextBlock HorizontalAlignment="Center" FontSize="25">ВАШ РЕЙТИНГ</TextBlock>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="/Images/star 1.png" Margin="0,0,5,0"/>
+                    <TextBlock x:Name="Rating" FontSize="30">1</TextBlock>
+                    <TextBlock FontSize="30">/5</TextBlock>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Margin="10,0,0,0" Background="#A669C8" Height="400">
+                <TextBlock HorizontalAlignment="Center" FontSize="25">ЗАДАЧИ</TextBlock>
+                <StackPanel>
+                    <TextBlock FontSize="20" Margin="0,0,0,10">Выполняется</TextBlock>
+                    <ListView x:Name="lvInProgress"></ListView>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock FontSize="20" Margin="0,0,0,10">Не выполняется</TextBlock>
+                    <ListView x:Name="lvFinished"></ListView>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
