@@ -17,17 +17,19 @@ namespace StorageApp.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Работники()
         {
+            this.Задачи = new HashSet<Задачи>();
             this.Рейтинг = new HashSet<Рейтинг>();
-            this.Группа_работников = new HashSet<Группа_работников>();
         }
     
         public long ID_работника { get; set; }
         public string ФИО_работника { get; set; }
         public string Специальность { get; set; }
+        public Nullable<long> ID_пользователя { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Рейтинг> Рейтинг { get; set; }
+        public virtual ICollection<Задачи> Задачи { get; set; }
+        public virtual Пользователи Пользователи { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Группа_работников> Группа_работников { get; set; }
+        public virtual ICollection<Рейтинг> Рейтинг { get; set; }
     }
 }

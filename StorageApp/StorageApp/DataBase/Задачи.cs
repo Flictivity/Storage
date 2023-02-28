@@ -20,8 +20,8 @@ namespace StorageApp.DataBase
         public System.DateTime Начало_выполнения { get; set; }
         public Nullable<System.DateTime> Окончание_выполнения { get; set; }
         public int Оценка_выполнения { get; set; }
-        public long ID_группы { get; set; }
+        public Nullable<long> ID_работника { get; set; }
     
-        public virtual Группа_работников Группа_работников { get; set; }
+        public virtual Работники Работники { get; set; }
     }
 }

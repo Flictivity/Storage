@@ -12,12 +12,12 @@ namespace StorageApp.DataBase
     using System;
     using System.Collections.Generic;
     
-    public partial class Рейтинг
+    public partial class sysdiagrams
     {
-        public long ID_рейтинга { get; set; }
-        public decimal Значение { get; set; }
-        public Nullable<long> ID_работника { get; set; }
-    
-        public virtual Работники Работники { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }
