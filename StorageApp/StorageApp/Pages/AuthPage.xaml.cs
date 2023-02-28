@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using StorageApp.DataBase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,29 @@ namespace StorageApp.Pages
         public AuthPage()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var myMessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
+            MySnackbar.MessageQueue = myMessageQueue;
+
+            var user = App.Context.Пользователи.FirstOrDefault(x => x.Почта == tbEmail.Text);
+            if(user == null)
+            {
+                myMessageQueue.Enqueue("Пользователь с такой почтой не найден!");
+                return;
+            }
+            if(user.Пароль != tbPassword.Text)
+            {
+                myMessageQueue.Enqueue("Неверный пароль!");
+                return;
+            }
+        }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new RegPage());
         }
     }
 }

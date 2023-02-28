@@ -25,7 +25,6 @@ namespace StorageApp.DataBase
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Группа_работников> Группа_работников { get; set; }
         public virtual DbSet<Задачи> Задачи { get; set; }
         public virtual DbSet<Пользователи> Пользователи { get; set; }
         public virtual DbSet<Работники> Работники { get; set; }

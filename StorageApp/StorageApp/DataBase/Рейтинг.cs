@@ -15,10 +15,9 @@ namespace StorageApp.DataBase
     public partial class Рейтинг
     {
         public long ID_рейтинга { get; set; }
-        public long ID_работника { get; set; }
-        public long ID_группы { get; set; }
+        public decimal Значение { get; set; }
+        public Nullable<long> ID_работника { get; set; }
     
-        public virtual Группа_работников Группа_работников { get; set; }
         public virtual Работники Работники { get; set; }
     }
 }
