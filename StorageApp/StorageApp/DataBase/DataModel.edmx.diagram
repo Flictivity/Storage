@@ -5,6 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2f99545ec89f46c08ade0f6799ff327e" Name="Diagram1">
+
         <EntityTypeShape EntityType="lab14Model.Задачи" Width="1.5" PointX="7.5" PointY="1.125" />
         <EntityTypeShape EntityType="lab14Model.Пользователи" Width="1.5" PointX="3" PointY="2.5" />
         <EntityTypeShape EntityType="lab14Model.Работники" Width="1.5" PointX="5.25" PointY="2.5" />

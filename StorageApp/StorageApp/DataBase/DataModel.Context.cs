@@ -24,11 +24,10 @@ namespace StorageApp.DataBase
         {
             throw new UnintentionalCodeFirstException();
         }
-    
         public virtual DbSet<Задачи> Задачи { get; set; }
-        public virtual DbSet<Пользователи> Пользователи { get; set; }
-        public virtual DbSet<Работники> Работники { get; set; }
         public virtual DbSet<Рейтинг> Рейтинг { get; set; }
         public virtual DbSet<Роли> Роли { get; set; }
+        public virtual DbSet<Пользователи> Пользователи { get; set; }
+        public virtual DbSet<Работники> Работники { get; set; }
     }
 }

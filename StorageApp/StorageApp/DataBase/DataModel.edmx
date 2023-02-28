@@ -40,6 +40,7 @@
           <Key>
             <PropertyRef Name="ID рейтинга" />
           </Key>
+
           <Property Name="ID рейтинга" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Значение" Type="decimal" Precision="4" Scale="2" Nullable="false" />
           <Property Name="ID работника" Type="bigint" />
@@ -127,6 +128,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="lab14Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="StorageEntities" annotation:LazyLoadingEnabled="true">
+
           <EntitySet Name="Задачи" EntityType="lab14Model.Задачи" />
           <EntitySet Name="Пользователи" EntityType="lab14Model.Пользователи" />
           <EntitySet Name="Работники" EntityType="lab14Model.Работники" />
@@ -190,6 +192,7 @@
           <Key>
             <PropertyRef Name="ID_рейтинга" />
           </Key>
+
           <Property Name="ID_рейтинга" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Значение" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
           <Property Name="ID_работника" Type="Int64" />
