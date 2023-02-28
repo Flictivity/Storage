@@ -5,27 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="lab14Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="Задачи">
           <Key>
             <PropertyRef Name="ID задачи" />
           </Key>
-          <Property Name="ID задачи" Type="bigint" Nullable="false" />
+          <Property Name="ID задачи" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Сложность задачи" Type="int" Nullable="false" />
           <Property Name="Состояние работы" Type="bit" Nullable="false" />
           <Property Name="Начало выполнения" Type="date" Nullable="false" />
           <Property Name="Окончание выполнения" Type="date" />
           <Property Name="Оценка выполнения" Type="int" Nullable="false" />
           <Property Name="ID работника" Type="bigint" />
+          <Property Name="ID администратора" Type="bigint" />
         </EntityType>
         <EntityType Name="Пользователи">
           <Key>
@@ -49,7 +40,8 @@
           <Key>
             <PropertyRef Name="ID рейтинга" />
           </Key>
-          <Property Name="ID рейтинга" Type="bigint" Nullable="false" />
+
+          <Property Name="ID рейтинга" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Значение" Type="decimal" Precision="4" Scale="2" Nullable="false" />
           <Property Name="ID работника" Type="bigint" />
         </EntityType>
@@ -57,7 +49,7 @@
           <Key>
             <PropertyRef Name="ID роли" />
           </Key>
-          <Property Name="ID роли" Type="bigint" Nullable="false" />
+          <Property Name="ID роли" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Название роли" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <Association Name="FK_Задачи_Работники1">
@@ -109,7 +101,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="lab14ModelStoreContainer">
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Задачи" EntityType="Self.Задачи" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Пользователи" EntityType="Self.Пользователи" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Работники" EntityType="Self.Работники" Schema="dbo" store:Type="Tables" />
@@ -137,12 +128,12 @@
     <edmx:ConceptualModels>
       <Schema Namespace="lab14Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="StorageEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="sysdiagrams" EntityType="lab14Model.sysdiagrams" />
+
           <EntitySet Name="Задачи" EntityType="lab14Model.Задачи" />
-          <EntitySet Name="Рейтинг" EntityType="lab14Model.Рейтинг" />
-          <EntitySet Name="Роли" EntityType="lab14Model.Роли" />
           <EntitySet Name="Пользователи" EntityType="lab14Model.Пользователи" />
           <EntitySet Name="Работники" EntityType="lab14Model.Работники" />
+          <EntitySet Name="Рейтинг" EntityType="lab14Model.Рейтинг" />
+          <EntitySet Name="Роли" EntityType="lab14Model.Роли" />
           <AssociationSet Name="FK_Задачи_Работники1" Association="lab14Model.FK_Задачи_Работники1">
             <End Role="Работники" EntitySet="Работники" />
             <End Role="Задачи" EntitySet="Задачи" />
@@ -160,21 +151,11 @@
             <End Role="Рейтинг" EntitySet="Рейтинг" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="Задачи">
           <Key>
             <PropertyRef Name="ID_задачи" />
           </Key>
-          <Property Name="ID_задачи" Type="Int64" Nullable="false" />
+          <Property Name="ID_задачи" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Сложность_задачи" Type="Int32" Nullable="false" />
           <Property Name="Состояние_работы" Type="Boolean" Nullable="false" />
           <Property Name="Начало_выполнения" Type="DateTime" Nullable="false" Precision="0" />
@@ -182,23 +163,7 @@
           <Property Name="Оценка_выполнения" Type="Int32" Nullable="false" />
           <Property Name="ID_работника" Type="Int64" />
           <NavigationProperty Name="Работники" Relationship="lab14Model.FK_Задачи_Работники1" FromRole="Задачи" ToRole="Работники" />
-        </EntityType>
-        <EntityType Name="Рейтинг">
-          <Key>
-            <PropertyRef Name="ID_рейтинга" />
-          </Key>
-          <Property Name="ID_рейтинга" Type="Int64" Nullable="false" />
-          <Property Name="Значение" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
-          <Property Name="ID_работника" Type="Int64" />
-          <NavigationProperty Name="Работники" Relationship="lab14Model.FK_Рейтинг_Работники" FromRole="Рейтинг" ToRole="Работники" />
-        </EntityType>
-        <EntityType Name="Роли">
-          <Key>
-            <PropertyRef Name="ID_роли" />
-          </Key>
-          <Property Name="ID_роли" Type="Int64" Nullable="false" />
-          <Property Name="Название_роли" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Пользователи" Relationship="lab14Model.FK_Пользователи_Роли" FromRole="Роли" ToRole="Пользователи" />
+          <Property Name="ID_администратора" Type="Int64" />
         </EntityType>
         <EntityType Name="Пользователи">
           <Key>
@@ -222,6 +187,24 @@
           <NavigationProperty Name="Задачи" Relationship="lab14Model.FK_Задачи_Работники1" FromRole="Работники" ToRole="Задачи" />
           <NavigationProperty Name="Пользователи" Relationship="lab14Model.FK_Работники_Пользователи" FromRole="Работники" ToRole="Пользователи" />
           <NavigationProperty Name="Рейтинг" Relationship="lab14Model.FK_Рейтинг_Работники" FromRole="Работники" ToRole="Рейтинг" />
+        </EntityType>
+        <EntityType Name="Рейтинг">
+          <Key>
+            <PropertyRef Name="ID_рейтинга" />
+          </Key>
+
+          <Property Name="ID_рейтинга" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Значение" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="ID_работника" Type="Int64" />
+          <NavigationProperty Name="Работники" Relationship="lab14Model.FK_Рейтинг_Работники" FromRole="Рейтинг" ToRole="Работники" />
+        </EntityType>
+        <EntityType Name="Роли">
+          <Key>
+            <PropertyRef Name="ID_роли" />
+          </Key>
+          <Property Name="ID_роли" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название_роли" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Пользователи" Relationship="lab14Model.FK_Пользователи_Роли" FromRole="Роли" ToRole="Пользователи" />
         </EntityType>
         <Association Name="FK_Задачи_Работники1">
           <End Type="lab14Model.Работники" Role="Работники" Multiplicity="0..1" />
@@ -277,20 +260,10 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="lab14ModelStoreContainer" CdmEntityContainer="StorageEntities">
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="lab14Model.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Задачи">
             <EntityTypeMapping TypeName="lab14Model.Задачи">
               <MappingFragment StoreEntitySet="Задачи">
+                <ScalarProperty Name="ID_администратора" ColumnName="ID администратора" />
                 <ScalarProperty Name="ID_работника" ColumnName="ID работника" />
                 <ScalarProperty Name="Оценка_выполнения" ColumnName="Оценка выполнения" />
                 <ScalarProperty Name="Окончание_выполнения" ColumnName="Окончание выполнения" />
@@ -298,23 +271,6 @@
                 <ScalarProperty Name="Состояние_работы" ColumnName="Состояние работы" />
                 <ScalarProperty Name="Сложность_задачи" ColumnName="Сложность задачи" />
                 <ScalarProperty Name="ID_задачи" ColumnName="ID задачи" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Рейтинг">
-            <EntityTypeMapping TypeName="lab14Model.Рейтинг">
-              <MappingFragment StoreEntitySet="Рейтинг">
-                <ScalarProperty Name="ID_работника" ColumnName="ID работника" />
-                <ScalarProperty Name="Значение" ColumnName="Значение" />
-                <ScalarProperty Name="ID_рейтинга" ColumnName="ID рейтинга" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Роли">
-            <EntityTypeMapping TypeName="lab14Model.Роли">
-              <MappingFragment StoreEntitySet="Роли">
-                <ScalarProperty Name="Название_роли" ColumnName="Название роли" />
-                <ScalarProperty Name="ID_роли" ColumnName="ID роли" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -335,6 +291,23 @@
                 <ScalarProperty Name="Специальность" ColumnName="Специальность" />
                 <ScalarProperty Name="ФИО_работника" ColumnName="ФИО работника" />
                 <ScalarProperty Name="ID_работника" ColumnName="ID работника" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Рейтинг">
+            <EntityTypeMapping TypeName="lab14Model.Рейтинг">
+              <MappingFragment StoreEntitySet="Рейтинг">
+                <ScalarProperty Name="ID_работника" ColumnName="ID работника" />
+                <ScalarProperty Name="Значение" ColumnName="Значение" />
+                <ScalarProperty Name="ID_рейтинга" ColumnName="ID рейтинга" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Роли">
+            <EntityTypeMapping TypeName="lab14Model.Роли">
+              <MappingFragment StoreEntitySet="Роли">
+                <ScalarProperty Name="Название_роли" ColumnName="Название роли" />
+                <ScalarProperty Name="ID_роли" ColumnName="ID роли" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

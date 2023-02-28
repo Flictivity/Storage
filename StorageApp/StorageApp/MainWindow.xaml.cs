@@ -24,7 +24,7 @@ namespace StorageApp
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.NavigationService.Navigate(new RegPage());
+            MainFrame.Navigate(new AuthPage());
         }
     }
 }

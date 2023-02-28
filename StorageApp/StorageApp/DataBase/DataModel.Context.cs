@@ -24,8 +24,6 @@ namespace StorageApp.DataBase
         {
             throw new UnintentionalCodeFirstException();
         }
-    
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Задачи> Задачи { get; set; }
         public virtual DbSet<Рейтинг> Рейтинг { get; set; }
         public virtual DbSet<Роли> Роли { get; set; }
