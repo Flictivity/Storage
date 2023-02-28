@@ -80,6 +80,8 @@ namespace StorageApp.Pages
                     App.Context.Работники.Add(newEmployee);
 
                     App.Context.SaveChanges();
+
+                    NavigationService.GoBack();
                 }
                 else
                 {
