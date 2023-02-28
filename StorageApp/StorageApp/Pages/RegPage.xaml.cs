@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,6 +43,11 @@ namespace StorageApp.Pages
                     !string.IsNullOrEmpty(tbPassword.Text) &&
                     cbRoles.SelectedItem != null)
                 {
+                    if (!CheckPassword(tbPassword.Text))
+                    {
+                        popupPassword.IsOpen = true;
+                    }
+
                     if (!cbAgree.IsChecked.Value || !cbNotRobot.IsChecked.Value)
                     {
                         myMessageQueue.Enqueue("Примите соглашения и подтвердите, что вы не робот!");
@@ -65,7 +71,7 @@ namespace StorageApp.Pages
 
                     Работники newEmployee = new Работники()
                     {
-                        ФИО_работника = tbSurname.Text + tbName.Text + tbPatronymic,
+                        ФИО_работника = $"{tbSurname.Text} {tbName.Text} {tbPatronymic}",
                         Специальность = "Кладовщик",
                         ID_пользователя = newUser.ID_пользователя
                     };
@@ -84,6 +90,29 @@ namespace StorageApp.Pages
             {
                 myMessageQueue.Enqueue("Произошла ошибка!");
             }
+        }
+
+        private bool CheckPassword(string password)
+        {
+            if (password.Length <= 8)
+            {
+                return false;
+            }
+
+            bool res = password.GroupBy(x => x).Any(x => x.Count() > 1);
+
+            if (res)
+            {
+                return false;
+            }
+
+            if (!Regex.IsMatch(password, @"[A-Z]") 
+                || !Regex.IsMatch(password, @"[a-z]"))
+            {
+                return false;
+            }
+                
+            return true;
         }
     }
 }

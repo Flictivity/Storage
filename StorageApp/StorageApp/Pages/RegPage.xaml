@@ -75,6 +75,19 @@
             <TextBox x:Name="tbEmail"></TextBox>
             <TextBlock Text="Пароль"></TextBlock>
             <TextBox x:Name="tbPassword"></TextBox>
+            <Popup x:Name="popupPassword" StaysOpen="False" Placement="Mouse" MaxWidth="180" AllowsTransparency="True">
+                <StackPanel  Width="180" Background="LightPink" Opacity="0.95" >
+                    <TextBlock TextWrapping="Wrap">
+                        -Длина пароля должна быть более 8 символов,
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap">
+                        -Пароль не должен содержать повторяющиеся символы и цифры,
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap">
+                        -Обязательно нужно включить заглавные и маленткие буквы
+                    </TextBlock>
+                </StackPanel>
+            </Popup>
             <TextBlock Text="Роль"></TextBlock>
             <ComboBox Name="cbRoles">
                 <ComboBox.ItemTemplate>
