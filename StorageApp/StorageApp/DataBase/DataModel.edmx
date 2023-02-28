@@ -4,31 +4,25 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="lab14Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Группа работников">
-          <Key>
-            <PropertyRef Name="ID группы" />
-          </Key>
-          <Property Name="ID группы" Type="bigint" Nullable="false" />
-          <Property Name="Завскладом" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
+    <Schema Namespace="lab14Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Задачи">
           <Key>
             <PropertyRef Name="ID задачи" />
           </Key>
-          <Property Name="ID задачи" Type="bigint" Nullable="false" />
+          <Property Name="ID задачи" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Сложность задачи" Type="int" Nullable="false" />
           <Property Name="Состояние работы" Type="bit" Nullable="false" />
           <Property Name="Начало выполнения" Type="date" Nullable="false" />
           <Property Name="Окончание выполнения" Type="date" />
           <Property Name="Оценка выполнения" Type="int" Nullable="false" />
-          <Property Name="ID группы" Type="bigint" Nullable="false" />
+          <Property Name="ID работника" Type="bigint" />
+          <Property Name="ID администратора" Type="bigint" />
         </EntityType>
         <EntityType Name="Пользователи">
           <Key>
             <PropertyRef Name="ID пользователя" />
           </Key>
-          <Property Name="ID пользователя" Type="bigint" Nullable="false" />
+          <Property Name="ID пользователя" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Почта" Type="nvarchar" MaxLength="60" Nullable="false" />
           <Property Name="Пароль" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="ID роли" Type="bigint" Nullable="false" />
@@ -37,44 +31,35 @@
           <Key>
             <PropertyRef Name="ID работника" />
           </Key>
-          <Property Name="ID работника" Type="bigint" Nullable="false" />
+          <Property Name="ID работника" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ФИО работника" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Специальность" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID пользователя" Type="bigint" />
         </EntityType>
         <EntityType Name="Рейтинг">
           <Key>
             <PropertyRef Name="ID рейтинга" />
           </Key>
-          <Property Name="ID рейтинга" Type="bigint" Nullable="false" />
-          <Property Name="ID работника" Type="bigint" Nullable="false" />
-          <Property Name="ID группы" Type="bigint" Nullable="false" />
+          <Property Name="ID рейтинга" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Значение" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="ID работника" Type="bigint" />
         </EntityType>
         <EntityType Name="Роли">
           <Key>
             <PropertyRef Name="ID роли" />
           </Key>
-          <Property Name="ID роли" Type="bigint" Nullable="false" />
+          <Property Name="ID роли" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Название роли" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'lab14.dbo.Связующая для группы и работников' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="Связующая для группы и работников">
-          <Key>
-            <PropertyRef Name="ID группы" />
-            <PropertyRef Name="ID работника" />
-          </Key>
-          <Property Name="ID группы" Type="bigint" Nullable="false" />
-          <Property Name="ID работника" Type="bigint" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Задачи_Группа работников">
-          <End Role="Группа работников" Type="Self.Группа работников" Multiplicity="1" />
+        <Association Name="FK_Задачи_Работники1">
+          <End Role="Работники" Type="Self.Работники" Multiplicity="0..1" />
           <End Role="Задачи" Type="Self.Задачи" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Группа работников">
-              <PropertyRef Name="ID группы" />
+            <Principal Role="Работники">
+              <PropertyRef Name="ID работника" />
             </Principal>
             <Dependent Role="Задачи">
-              <PropertyRef Name="ID группы" />
+              <PropertyRef Name="ID работника" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -90,185 +75,149 @@ warning 6002: The table/view 'lab14.dbo.Связующая для группы �
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Рейтинг_Группа работников">
-          <End Role="Группа работников" Type="Self.Группа работников" Multiplicity="1" />
-          <End Role="Рейтинг" Type="Self.Рейтинг" Multiplicity="*" />
+        <Association Name="FK_Работники_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="Работники" Type="Self.Работники" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Группа работников">
-              <PropertyRef Name="ID группы" />
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID пользователя" />
             </Principal>
-            <Dependent Role="Рейтинг">
-              <PropertyRef Name="ID группы" />
+            <Dependent Role="Работники">
+              <PropertyRef Name="ID пользователя" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Рейтинг_Работники">
-          <End Role="Работники" Type="Self.Работники" Multiplicity="1" />
+          <End Role="Работники" Type="Self.Работники" Multiplicity="0..1" />
           <End Role="Рейтинг" Type="Self.Рейтинг" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Работники">
               <PropertyRef Name="ID работника" />
             </Principal>
             <Dependent Role="Рейтинг">
-              <PropertyRef Name="ID работника" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Связующая для группы и работников_Группа работников">
-          <End Role="Группа работников" Type="Self.Группа работников" Multiplicity="1" />
-          <End Role="Связующая для группы и работников" Type="Self.Связующая для группы и работников" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Группа работников">
-              <PropertyRef Name="ID группы" />
-            </Principal>
-            <Dependent Role="Связующая для группы и работников">
-              <PropertyRef Name="ID группы" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Связующая для группы и работников_Работники">
-          <End Role="Работники" Type="Self.Работники" Multiplicity="1" />
-          <End Role="Связующая для группы и работников" Type="Self.Связующая для группы и работников" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Работники">
-              <PropertyRef Name="ID работника" />
-            </Principal>
-            <Dependent Role="Связующая для группы и работников">
               <PropertyRef Name="ID работника" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="lab14ModelStoreContainer">
-          <EntitySet Name="Группа работников" EntityType="Self.Группа работников" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Задачи" EntityType="Self.Задачи" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Пользователи" EntityType="Self.Пользователи" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Работники" EntityType="Self.Работники" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Рейтинг" EntityType="Self.Рейтинг" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Роли" EntityType="Self.Роли" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Связующая для группы и работников" EntityType="Self.Связующая для группы и работников" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Связующая для группы и работников].[ID группы] AS [ID группы], 
-    [Связующая для группы и работников].[ID работника] AS [ID работника]
-    FROM [dbo].[Связующая для группы и работников] AS [Связующая для группы и работников]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK_Задачи_Группа работников" Association="Self.FK_Задачи_Группа работников">
-            <End Role="Группа работников" EntitySet="Группа работников" />
+          <AssociationSet Name="FK_Задачи_Работники1" Association="Self.FK_Задачи_Работники1">
+            <End Role="Работники" EntitySet="Работники" />
             <End Role="Задачи" EntitySet="Задачи" />
           </AssociationSet>
           <AssociationSet Name="FK_Пользователи_Роли" Association="Self.FK_Пользователи_Роли">
             <End Role="Роли" EntitySet="Роли" />
             <End Role="Пользователи" EntitySet="Пользователи" />
           </AssociationSet>
-          <AssociationSet Name="FK_Рейтинг_Группа работников" Association="Self.FK_Рейтинг_Группа работников">
-            <End Role="Группа работников" EntitySet="Группа работников" />
-            <End Role="Рейтинг" EntitySet="Рейтинг" />
+          <AssociationSet Name="FK_Работники_Пользователи" Association="Self.FK_Работники_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Работники" EntitySet="Работники" />
           </AssociationSet>
           <AssociationSet Name="FK_Рейтинг_Работники" Association="Self.FK_Рейтинг_Работники">
             <End Role="Работники" EntitySet="Работники" />
             <End Role="Рейтинг" EntitySet="Рейтинг" />
           </AssociationSet>
-          <AssociationSet Name="FK_Связующая для группы и работников_Группа работников" Association="Self.FK_Связующая для группы и работников_Группа работников">
-            <End Role="Группа работников" EntitySet="Группа работников" />
-            <End Role="Связующая для группы и работников" EntitySet="Связующая для группы и работников" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Связующая для группы и работников_Работники" Association="Self.FK_Связующая для группы и работников_Работники">
-            <End Role="Работники" EntitySet="Работники" />
-            <End Role="Связующая для группы и работников" EntitySet="Связующая для группы и работников" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="lab14Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Группа_работников">
-          <Key>
-            <PropertyRef Name="ID_группы" />
-          </Key>
-          <Property Name="ID_группы" Type="Int64" Nullable="false" />
-          <Property Name="Завскладом" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Задачи" Relationship="Self.FK_Задачи_Группа_работников" FromRole="Группа_работников" ToRole="Задачи" />
-          <NavigationProperty Name="Рейтинг" Relationship="Self.FK_Рейтинг_Группа_работников" FromRole="Группа_работников" ToRole="Рейтинг" />
-          <NavigationProperty Name="Работники" Relationship="Self.Связующая_для_группы_и_работников" FromRole="Группа_работников" ToRole="Работники" />
-        </EntityType>
+        <EntityContainer Name="StorageEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Задачи" EntityType="lab14Model.Задачи" />
+          <EntitySet Name="Пользователи" EntityType="lab14Model.Пользователи" />
+          <EntitySet Name="Работники" EntityType="lab14Model.Работники" />
+          <EntitySet Name="Рейтинг" EntityType="lab14Model.Рейтинг" />
+          <EntitySet Name="Роли" EntityType="lab14Model.Роли" />
+          <AssociationSet Name="FK_Задачи_Работники1" Association="lab14Model.FK_Задачи_Работники1">
+            <End Role="Работники" EntitySet="Работники" />
+            <End Role="Задачи" EntitySet="Задачи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Пользователи_Роли" Association="lab14Model.FK_Пользователи_Роли">
+            <End Role="Роли" EntitySet="Роли" />
+            <End Role="Пользователи" EntitySet="Пользователи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Работники_Пользователи" Association="lab14Model.FK_Работники_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Работники" EntitySet="Работники" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Рейтинг_Работники" Association="lab14Model.FK_Рейтинг_Работники">
+            <End Role="Работники" EntitySet="Работники" />
+            <End Role="Рейтинг" EntitySet="Рейтинг" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Задачи">
           <Key>
             <PropertyRef Name="ID_задачи" />
           </Key>
-          <Property Name="ID_задачи" Type="Int64" Nullable="false" />
+          <Property Name="ID_задачи" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Сложность_задачи" Type="Int32" Nullable="false" />
           <Property Name="Состояние_работы" Type="Boolean" Nullable="false" />
           <Property Name="Начало_выполнения" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Окончание_выполнения" Type="DateTime" Precision="0" />
           <Property Name="Оценка_выполнения" Type="Int32" Nullable="false" />
-          <Property Name="ID_группы" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Группа_работников" Relationship="Self.FK_Задачи_Группа_работников" FromRole="Задачи" ToRole="Группа_работников" />
+          <Property Name="ID_работника" Type="Int64" />
+          <NavigationProperty Name="Работники" Relationship="lab14Model.FK_Задачи_Работники1" FromRole="Задачи" ToRole="Работники" />
+          <Property Name="ID_администратора" Type="Int64" />
         </EntityType>
         <EntityType Name="Пользователи">
           <Key>
             <PropertyRef Name="ID_пользователя" />
           </Key>
-          <Property Name="ID_пользователя" Type="Int64" Nullable="false" />
-          <Property Name="Почта" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Пароль" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_пользователя" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Почта" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Пароль" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="ID_роли" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Роли" Relationship="Self.FK_Пользователи_Роли" FromRole="Пользователи" ToRole="Роли" />
+          <NavigationProperty Name="Роли" Relationship="lab14Model.FK_Пользователи_Роли" FromRole="Пользователи" ToRole="Роли" />
+          <NavigationProperty Name="Работники" Relationship="lab14Model.FK_Работники_Пользователи" FromRole="Пользователи" ToRole="Работники" />
         </EntityType>
         <EntityType Name="Работники">
           <Key>
             <PropertyRef Name="ID_работника" />
           </Key>
-          <Property Name="ID_работника" Type="Int64" Nullable="false" />
-          <Property Name="ФИО_работника" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Специальность" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Рейтинг" Relationship="Self.FK_Рейтинг_Работники" FromRole="Работники" ToRole="Рейтинг" />
-          <NavigationProperty Name="Группа_работников" Relationship="Self.Связующая_для_группы_и_работников" FromRole="Работники" ToRole="Группа_работников" />
+          <Property Name="ID_работника" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ФИО_работника" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Специальность" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_пользователя" Type="Int64" />
+          <NavigationProperty Name="Задачи" Relationship="lab14Model.FK_Задачи_Работники1" FromRole="Работники" ToRole="Задачи" />
+          <NavigationProperty Name="Пользователи" Relationship="lab14Model.FK_Работники_Пользователи" FromRole="Работники" ToRole="Пользователи" />
+          <NavigationProperty Name="Рейтинг" Relationship="lab14Model.FK_Рейтинг_Работники" FromRole="Работники" ToRole="Рейтинг" />
         </EntityType>
         <EntityType Name="Рейтинг">
           <Key>
             <PropertyRef Name="ID_рейтинга" />
           </Key>
-          <Property Name="ID_рейтинга" Type="Int64" Nullable="false" />
-          <Property Name="ID_работника" Type="Int64" Nullable="false" />
-          <Property Name="ID_группы" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Группа_работников" Relationship="Self.FK_Рейтинг_Группа_работников" FromRole="Рейтинг" ToRole="Группа_работников" />
-          <NavigationProperty Name="Работники" Relationship="Self.FK_Рейтинг_Работники" FromRole="Рейтинг" ToRole="Работники" />
+          <Property Name="ID_рейтинга" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Значение" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="ID_работника" Type="Int64" />
+          <NavigationProperty Name="Работники" Relationship="lab14Model.FK_Рейтинг_Работники" FromRole="Рейтинг" ToRole="Работники" />
         </EntityType>
         <EntityType Name="Роли">
           <Key>
             <PropertyRef Name="ID_роли" />
           </Key>
-          <Property Name="ID_роли" Type="Int64" Nullable="false" />
-          <Property Name="Название_роли" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Пользователи" Relationship="Self.FK_Пользователи_Роли" FromRole="Роли" ToRole="Пользователи" />
+          <Property Name="ID_роли" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название_роли" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Пользователи" Relationship="lab14Model.FK_Пользователи_Роли" FromRole="Роли" ToRole="Пользователи" />
         </EntityType>
-        <Association Name="FK_Задачи_Группа_работников">
-          <End Role="Группа_работников" Type="Self.Группа_работников" Multiplicity="1" />
-          <End Role="Задачи" Type="Self.Задачи" Multiplicity="*" />
+        <Association Name="FK_Задачи_Работники1">
+          <End Type="lab14Model.Работники" Role="Работники" Multiplicity="0..1" />
+          <End Type="lab14Model.Задачи" Role="Задачи" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Группа_работников">
-              <PropertyRef Name="ID_группы" />
+            <Principal Role="Работники">
+              <PropertyRef Name="ID_работника" />
             </Principal>
             <Dependent Role="Задачи">
-              <PropertyRef Name="ID_группы" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Рейтинг_Группа_работников">
-          <End Role="Группа_работников" Type="Self.Группа_работников" Multiplicity="1" />
-          <End Role="Рейтинг" Type="Self.Рейтинг" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Группа_работников">
-              <PropertyRef Name="ID_группы" />
-            </Principal>
-            <Dependent Role="Рейтинг">
-              <PropertyRef Name="ID_группы" />
+              <PropertyRef Name="ID_работника" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Пользователи_Роли">
-          <End Role="Роли" Type="Self.Роли" Multiplicity="1" />
-          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="*" />
+          <End Type="lab14Model.Роли" Role="Роли" Multiplicity="1" />
+          <End Type="lab14Model.Пользователи" Role="Пользователи" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Роли">
               <PropertyRef Name="ID_роли" />
@@ -278,9 +227,21 @@ warning 6002: The table/view 'lab14.dbo.Связующая для группы �
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Работники_Пользователи">
+          <End Type="lab14Model.Пользователи" Role="Пользователи" Multiplicity="0..1" />
+          <End Type="lab14Model.Работники" Role="Работники" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID_пользователя" />
+            </Principal>
+            <Dependent Role="Работники">
+              <PropertyRef Name="ID_пользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Рейтинг_Работники">
-          <End Role="Работники" Type="Self.Работники" Multiplicity="1" />
-          <End Role="Рейтинг" Type="Self.Рейтинг" Multiplicity="*" />
+          <End Type="lab14Model.Работники" Role="Работники" Multiplicity="0..1" />
+          <End Type="lab14Model.Рейтинг" Role="Рейтинг" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Работники">
               <PropertyRef Name="ID_работника" />
@@ -290,109 +251,63 @@ warning 6002: The table/view 'lab14.dbo.Связующая для группы �
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Связующая_для_группы_и_работников">
-          <End Role="Группа_работников" Type="Self.Группа_работников" Multiplicity="*" />
-          <End Role="Работники" Type="Self.Работники" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="StorageEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Группа_работников" EntityType="Self.Группа_работников" />
-          <EntitySet Name="Задачи" EntityType="Self.Задачи" />
-          <EntitySet Name="Пользователи" EntityType="Self.Пользователи" />
-          <EntitySet Name="Работники" EntityType="Self.Работники" />
-          <EntitySet Name="Рейтинг" EntityType="Self.Рейтинг" />
-          <EntitySet Name="Роли" EntityType="Self.Роли" />
-          <AssociationSet Name="FK_Задачи_Группа_работников" Association="Self.FK_Задачи_Группа_работников">
-            <End Role="Группа_работников" EntitySet="Группа_работников" />
-            <End Role="Задачи" EntitySet="Задачи" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Рейтинг_Группа_работников" Association="Self.FK_Рейтинг_Группа_работников">
-            <End Role="Группа_работников" EntitySet="Группа_работников" />
-            <End Role="Рейтинг" EntitySet="Рейтинг" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Пользователи_Роли" Association="Self.FK_Пользователи_Роли">
-            <End Role="Роли" EntitySet="Роли" />
-            <End Role="Пользователи" EntitySet="Пользователи" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Рейтинг_Работники" Association="Self.FK_Рейтинг_Работники">
-            <End Role="Работники" EntitySet="Работники" />
-            <End Role="Рейтинг" EntitySet="Рейтинг" />
-          </AssociationSet>
-          <AssociationSet Name="Связующая_для_группы_и_работников" Association="Self.Связующая_для_группы_и_работников">
-            <End Role="Группа_работников" EntitySet="Группа_работников" />
-            <End Role="Работники" EntitySet="Работники" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="lab14ModelStoreContainer" CdmEntityContainer="StorageEntities">
-          <EntitySetMapping Name="Группа_работников">
-            <EntityTypeMapping TypeName="lab14Model.Группа_работников">
-              <MappingFragment StoreEntitySet="Группа работников">
-                <ScalarProperty Name="ID_группы" ColumnName="ID группы" />
-                <ScalarProperty Name="Завскладом" ColumnName="Завскладом" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Задачи">
             <EntityTypeMapping TypeName="lab14Model.Задачи">
               <MappingFragment StoreEntitySet="Задачи">
-                <ScalarProperty Name="ID_задачи" ColumnName="ID задачи" />
-                <ScalarProperty Name="Сложность_задачи" ColumnName="Сложность задачи" />
-                <ScalarProperty Name="Состояние_работы" ColumnName="Состояние работы" />
-                <ScalarProperty Name="Начало_выполнения" ColumnName="Начало выполнения" />
-                <ScalarProperty Name="Окончание_выполнения" ColumnName="Окончание выполнения" />
+                <ScalarProperty Name="ID_администратора" ColumnName="ID администратора" />
+                <ScalarProperty Name="ID_работника" ColumnName="ID работника" />
                 <ScalarProperty Name="Оценка_выполнения" ColumnName="Оценка выполнения" />
-                <ScalarProperty Name="ID_группы" ColumnName="ID группы" />
+                <ScalarProperty Name="Окончание_выполнения" ColumnName="Окончание выполнения" />
+                <ScalarProperty Name="Начало_выполнения" ColumnName="Начало выполнения" />
+                <ScalarProperty Name="Состояние_работы" ColumnName="Состояние работы" />
+                <ScalarProperty Name="Сложность_задачи" ColumnName="Сложность задачи" />
+                <ScalarProperty Name="ID_задачи" ColumnName="ID задачи" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Пользователи">
             <EntityTypeMapping TypeName="lab14Model.Пользователи">
               <MappingFragment StoreEntitySet="Пользователи">
-                <ScalarProperty Name="ID_пользователя" ColumnName="ID пользователя" />
-                <ScalarProperty Name="Почта" ColumnName="Почта" />
-                <ScalarProperty Name="Пароль" ColumnName="Пароль" />
                 <ScalarProperty Name="ID_роли" ColumnName="ID роли" />
+                <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+                <ScalarProperty Name="Почта" ColumnName="Почта" />
+                <ScalarProperty Name="ID_пользователя" ColumnName="ID пользователя" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Работники">
             <EntityTypeMapping TypeName="lab14Model.Работники">
               <MappingFragment StoreEntitySet="Работники">
-                <ScalarProperty Name="ID_работника" ColumnName="ID работника" />
-                <ScalarProperty Name="ФИО_работника" ColumnName="ФИО работника" />
+                <ScalarProperty Name="ID_пользователя" ColumnName="ID пользователя" />
                 <ScalarProperty Name="Специальность" ColumnName="Специальность" />
+                <ScalarProperty Name="ФИО_работника" ColumnName="ФИО работника" />
+                <ScalarProperty Name="ID_работника" ColumnName="ID работника" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Рейтинг">
             <EntityTypeMapping TypeName="lab14Model.Рейтинг">
               <MappingFragment StoreEntitySet="Рейтинг">
-                <ScalarProperty Name="ID_рейтинга" ColumnName="ID рейтинга" />
                 <ScalarProperty Name="ID_работника" ColumnName="ID работника" />
-                <ScalarProperty Name="ID_группы" ColumnName="ID группы" />
+                <ScalarProperty Name="Значение" ColumnName="Значение" />
+                <ScalarProperty Name="ID_рейтинга" ColumnName="ID рейтинга" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Роли">
             <EntityTypeMapping TypeName="lab14Model.Роли">
               <MappingFragment StoreEntitySet="Роли">
-                <ScalarProperty Name="ID_роли" ColumnName="ID роли" />
                 <ScalarProperty Name="Название_роли" ColumnName="Название роли" />
+                <ScalarProperty Name="ID_роли" ColumnName="ID роли" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Связующая_для_группы_и_работников" TypeName="lab14Model.Связующая_для_группы_и_работников" StoreEntitySet="Связующая для группы и работников">
-            <EndProperty Name="Группа_работников">
-              <ScalarProperty Name="ID_группы" ColumnName="ID группы" />
-            </EndProperty>
-            <EndProperty Name="Работники">
-              <ScalarProperty Name="ID_работника" ColumnName="ID работника" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

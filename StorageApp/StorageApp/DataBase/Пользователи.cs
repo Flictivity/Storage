@@ -14,11 +14,19 @@ namespace StorageApp.DataBase
     
     public partial class Пользователи
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Пользователи()
+        {
+            this.Работники = new HashSet<Работники>();
+        }
+    
         public long ID_пользователя { get; set; }
         public string Почта { get; set; }
         public string Пароль { get; set; }
         public long ID_роли { get; set; }
     
         public virtual Роли Роли { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Работники> Работники { get; set; }
     }
 }

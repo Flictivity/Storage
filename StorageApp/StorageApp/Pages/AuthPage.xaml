@@ -34,10 +34,21 @@
     </Page.Resources>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+        </Grid.RowDefinitions>
+        
         <Grid.Background>
             <ImageBrush ImageSource="/Images/background.png" />
         </Grid.Background>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock FontSize="20" Foreground="White" Margin="0,0,0,5">Почта</TextBlock>
             <TextBox x:Name="tbEmail" Width="400" Margin="0,0,0,10"/>
 
