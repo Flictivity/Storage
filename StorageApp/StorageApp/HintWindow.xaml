@@ -5,7 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StorageApp"
         mc:Ignorable="d"
-        Title="HintWondow" Height="150" Width="200" WindowStyle="None" Background="Transparent" AllowsTransparency="True">
+        Title="HintWondow" Height="170" Width="220" WindowStyle="None" Background="Transparent" AllowsTransparency="True">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Background" Value="#A669C8"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Border Width="auto" Height="auto" Name="mainBorder">
             <Border.Background>
@@ -29,7 +42,9 @@
                     <TextBlock x:Name="tbHint" TextWrapping="Wrap" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Center" FontSize="14" 
                                Foreground="Black" HorizontalAlignment="Center"></TextBlock>
                 </Grid>
-                <TextBlock Padding="5" Grid.Row="2" HorizontalAlignment="Center"></TextBlock>
+                <TextBlock Padding="5" Grid.Row="2" HorizontalAlignment="Center">
+                     <Button Content="Далее" Width="100" Height="30" VerticalAlignment="Bottom" Click="EventClose"></Button>
+                </TextBlock>
             </Grid>
         </Border>
     </Grid>

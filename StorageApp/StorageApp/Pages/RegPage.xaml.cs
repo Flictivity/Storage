@@ -26,7 +26,11 @@ namespace StorageApp.Pages
         public RegPage()
         {
             InitializeComponent();
-            cbRoles.ItemsSource = App.Context.Роли.ToList();
+            try
+            {
+                cbRoles.ItemsSource = App.Context.Роли.ToList();
+            }
+            catch { }
         }
 
         private void EventRegister(object sender, RoutedEventArgs e)
@@ -80,6 +84,8 @@ namespace StorageApp.Pages
                     App.Context.Работники.Add(newEmployee);
 
                     App.Context.SaveChanges();
+
+                    NavigationService.Navigate(new UserTasksPage(true));
                 }
                 else
                 {

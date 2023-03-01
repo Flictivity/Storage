@@ -32,15 +32,25 @@ namespace StorageApp.Pages
             var myMessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
             MySnackbar.MessageQueue = myMessageQueue;
 
-            var user = App.Context.Пользователи.FirstOrDefault(x => x.Почта == tbEmail.Text);
-            if(user == null)
+            try
             {
-                myMessageQueue.Enqueue("Пользователь с такой почтой не найден!");
-                return;
+                var user = App.Context.Пользователи.FirstOrDefault(x => x.Почта == tbEmail.Text);
+                if (user == null)
+                {
+                    myMessageQueue.Enqueue("Пользователь с такой почтой не найден!");
+                    return;
+                }
+                if (user.Пароль != tbPassword.Text)
+                {
+                    myMessageQueue.Enqueue("Неверный пароль!");
+                    return;
+                }
+                App.CurrentUser = user;
+                NavigationService.Navigate(new UserTasksPage(false));
             }
-            if(user.Пароль != tbPassword.Text)
+            catch
             {
-                myMessageQueue.Enqueue("Неверный пароль!");
+                myMessageQueue.Enqueue("Произошла ошибка!");
                 return;
             }
         }

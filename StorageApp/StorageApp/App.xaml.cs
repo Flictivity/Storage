@@ -15,5 +15,6 @@ namespace StorageApp
     public partial class App : Application
     {
         public static StorageEntities Context = new StorageEntities();
+        public static Пользователи CurrentUser { get; set; }
     }
 }
