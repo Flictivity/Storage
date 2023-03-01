@@ -40,6 +40,13 @@ namespace StorageApp.Pages
         {
             InitializeComponent();
 
+            var emp = App.Context.Работники.FirstOrDefault(x => x.ID_пользователя == App.CurrentUser.ID_пользователя);
+
+            var empData = emp.ФИО_работника.Split();
+            tblN.Text = empData[1].ToString();
+            tblS.Text = empData[0].ToString();
+            tblEm.Text = emp.Специальность;
+
             InfoFrame.Navigate(new TasksPage());
 
             if (showHints)
@@ -62,6 +69,11 @@ namespace StorageApp.Pages
         {
             hintIndex++;
             if (hintIndex < hints.Count) ShowHint();
+        }
+
+        private void Event_CreateTaskPage(object sender, RoutedEventArgs e)
+        {
+            InfoFrame.Navigate(new CreateTaskPage());
         }
     }
 }

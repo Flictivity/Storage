@@ -27,8 +27,8 @@ namespace StorageApp.Pages
             InitializeComponent();
 
             var tasks = App.Context.Задачи.ToList();
-            lvInProgress.ItemsSource = tasks.Where(x => x.Состояние_работы).ToList();
-            lvFinished.ItemsSource = tasks.Where(x => !x.Состояние_работы).ToList();
+            lvInProgress.ItemsSource = tasks.Where(x => !x.Состояние_работы).ToList();
+            lvFinished.ItemsSource = tasks.Where(x => x.Состояние_работы).ToList();
         }
 
         private void lvFinished_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -40,6 +40,11 @@ namespace StorageApp.Pages
         private void ShowTaskInfo(Задачи task)
         {
             NavigationService.Navigate( new TaskPage(task));
+        }
+
+        private void lvInProgress_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ShowTaskInfo((Задачи)lvInProgress.SelectedItem);
         }
     }
 }

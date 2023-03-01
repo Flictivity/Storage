@@ -20,7 +20,11 @@
                 <TextBlock FontSize="20" Margin="0,0,0,10">Выполняется</TextBlock>
                 <ListView x:Name="lvInProgress"
                               Background="#B2E55E"
-                              Height="140">
+                              Height="140"
+                              Foreground="White"
+                              FontSize="15"
+                              FontWeight="Bold"
+                              SelectionChanged="lvInProgress_SelectionChanged">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
