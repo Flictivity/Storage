@@ -144,7 +144,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\UserTasksPage.xaml">
+    <Page Include="Pages\AdminTasksPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,8 +165,8 @@
     <Compile Include="Pages\TasksPage.xaml.cs">
       <DependentUpon>TasksPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\UserTasksPage.xaml.cs">
-      <DependentUpon>UserTasksPage.xaml</DependentUpon>
+    <Compile Include="Pages\AdminTasksPage.xaml.cs">
+      <DependentUpon>AdminTasksPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

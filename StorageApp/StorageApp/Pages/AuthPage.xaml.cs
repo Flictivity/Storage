@@ -46,7 +46,7 @@ namespace StorageApp.Pages
                     return;
                 }
                 App.CurrentUser = user;
-                NavigationService.Navigate(new UserTasksPage(false));
+                NavigationService.Navigate(new AdminTasksPage(false));
             }
             catch
             {

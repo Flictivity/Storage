@@ -85,7 +85,7 @@ namespace StorageApp.Pages
 
                     App.Context.SaveChanges();
 
-                    NavigationService.Navigate(new UserTasksPage(true));
+                    NavigationService.Navigate(new AdminTasksPage(true));
                 }
                 else
                 {

@@ -19,7 +19,7 @@ namespace StorageApp.Pages
     /// <summary>
     /// Interaction logic for UserTasksPage.xaml
     /// </summary>
-    public partial class UserTasksPage : Page
+    public partial class AdminTasksPage : Page
     {
         private List<HintWondow> hints = new List<HintWondow>()
         {
@@ -36,7 +36,7 @@ namespace StorageApp.Pages
 
         private int hintIndex = 0;
 
-        public UserTasksPage(bool showHints)
+        public AdminTasksPage(bool showHints)
         {
             InitializeComponent();
 
