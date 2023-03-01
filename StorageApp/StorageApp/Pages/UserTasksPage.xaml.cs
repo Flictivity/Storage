@@ -40,6 +40,8 @@ namespace StorageApp.Pages
         {
             InitializeComponent();
 
+            InfoFrame.Navigate(new TasksPage());
+
             if (showHints)
             {
                 foreach (var hint in hints)
@@ -61,6 +63,5 @@ namespace StorageApp.Pages
             hintIndex++;
             if (hintIndex < hints.Count) ShowHint();
         }
-
     }
 }

@@ -76,18 +76,8 @@
                     <TextBlock FontSize="30">/5</TextBlock>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Grid.Column="1" Margin="10,0,0,0" Background="#A669C8" Height="400">
-                <TextBlock HorizontalAlignment="Center" FontSize="25">ЗАДАЧИ</TextBlock>
-                <StackPanel>
-                    <TextBlock FontSize="20" Margin="0,0,0,10">Выполняется</TextBlock>
-                    <ListView x:Name="lvInProgress"></ListView>
-                </StackPanel>
-
-                <StackPanel>
-                    <TextBlock FontSize="20" Margin="0,0,0,10">Не выполняется</TextBlock>
-                    <ListView x:Name="lvFinished"></ListView>
-                </StackPanel>
-            </StackPanel>
+            <Frame x:Name="InfoFrame" NavigationUIVisibility="Hidden" Grid.Row="1" Grid.Column="1" Height="400" Background="#A669C8">
+            </Frame>
         </Grid>
     </Grid>
 </Page>
