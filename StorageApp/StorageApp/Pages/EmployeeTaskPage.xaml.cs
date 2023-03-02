@@ -35,11 +35,9 @@ namespace StorageApp.Pages
             tbStartDate.Text = task.Начало_выполнения.ToString();
             tbEndDate.Text = task.Окончание_выполнения.ToString();
             tbEstimation.Text = task.Оценка_выполнения.ToString();
-            tbAdmin.Text = task.Работники1.ФИО_работника;
-            tbEmployee.Text = task.Работники.ФИО_работника;
+            tbAdmin.Text = task.Работники1?.ФИО_работника;
+            tbEmployee.Text = task.Работники?.ФИО_работника;
             tbTimer.Text = task.Время_выполнения.ToString();
-
-            task.Работники = null;
 
             if (task.Работники == null)
             {
