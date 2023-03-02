@@ -18,8 +18,5 @@ namespace StorageApp
     {
         public static StorageAppEntities Context = new StorageAppEntities();
         public static Пользователи CurrentUser { get; set; }
-
-        public static TimeSpan ExTime; 
-        public static DispatcherTimer Timer;
     }
 }
