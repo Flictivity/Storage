@@ -45,12 +45,15 @@ namespace StorageApp.Pages
                 {
                     var time = new TimeSpan(tpTaskTime.SelectedTime.Value.Hour, tpTaskTime.SelectedTime.Value.Minute, 0);
 
+                    var employee = App.Context.Работники.FirstOrDefault(x => x.ID_пользователя == App.CurrentUser.ID_пользователя);
+
                     var newTask = new Задачи()
                     {
                         Название = tbTaskName.Text,
                         Сложность_задачи = (int)cbTaskComplexety.SelectedItem,
                         Состояние_работы = false,
-                        Время_выполнения = time
+                        Время_выполнения = time,
+                        Работники = employee
                     };
 
                     App.Context.Задачи.Add(newTask);

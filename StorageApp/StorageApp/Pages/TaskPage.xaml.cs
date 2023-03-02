@@ -46,8 +46,8 @@ namespace StorageApp.Pages
             dpStartTime.SelectedDate = _task.Начало_выполнения;
             dpEndDate.SelectedDate = _task.Окончание_выполнения;
             tbEstimation.Text = _task.Оценка_выполнения.ToString();
-            cbAdmin.SelectedItem = _task.Работники1;
-            cbEmployee.SelectedItem = _task.Работники;
+            cbAdmin.SelectedItem = _task.Работники;
+            cbEmployee.SelectedItem = _task.Работники1;
             tblTimer.Text = _task.Время_выполнения.ToString();
 
             var myMessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
@@ -100,8 +100,37 @@ namespace StorageApp.Pages
             {
                 _task.Окончание_выполнения = DateTime.Now;
             }
-            _task.Оценка_выполнения = int.Parse(tbEstimation.Text);
-            _task.Работники = (Работники)cbEmployee.SelectedItem;
+
+            if (!string.IsNullOrEmpty(tbEstimation.Text))
+            {
+                var estimation = int.Parse(tbEstimation.Text);
+
+                var employee = (Работники)cbEmployee.SelectedItem;
+
+                var raiting = App.Context.Рейтинг.FirstOrDefault(x => x.ID_работника == employee.ID_работника);
+
+                raiting.Значение += (decimal) estimation / 10;
+
+                if (raiting.Значение > 5)
+                {
+                    raiting.Значение = 5;
+                }
+
+                if (raiting.Значение < 0)
+                {
+                    raiting.Значение = 0;
+                }
+
+                _task.Оценка_выполнения = int.Parse(tbEstimation.Text);
+
+                App.Context.SaveChanges();
+            }
+
+            _task.Работники1 = (Работники)cbEmployee.SelectedItem;
+
+            App.Context.SaveChanges();
+
+            NavigationService.Navigate(new TasksPage());
         }
 
         private void Event_RemoveTask(object sender, RoutedEventArgs e)
