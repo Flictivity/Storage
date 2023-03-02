@@ -85,7 +85,16 @@ namespace StorageApp.Pages
 
                     App.Context.SaveChanges();
 
-                    NavigationService.Navigate(new AdminTasksPage(true));
+                    App.CurrentUser = newUser;
+
+                    if (newUser.ID_роли == 1)
+                    {
+                        NavigationService.Navigate(new EmployeeTasksPage(true));
+                    }
+                    else
+                    {
+                        NavigationService.Navigate(new AdminTasksPage(true));
+                    }
                 }
                 else
                 {

@@ -17,12 +17,15 @@ namespace StorageApp.DataBase
         public long ID_задачи { get; set; }
         public int Сложность_задачи { get; set; }
         public bool Состояние_работы { get; set; }
-        public System.DateTime Начало_выполнения { get; set; }
+        public Nullable<System.DateTime> Начало_выполнения { get; set; }
         public Nullable<System.DateTime> Окончание_выполнения { get; set; }
-        public int Оценка_выполнения { get; set; }
+        public Nullable<int> Оценка_выполнения { get; set; }
         public Nullable<long> ID_работника { get; set; }
         public Nullable<long> ID_администратора { get; set; }
+        public string Название { get; set; }
+        public Nullable<System.TimeSpan> Время_выполнения { get; set; }
     
         public virtual Работники Работники { get; set; }
+        public virtual Работники Работники1 { get; set; }
     }
 }

@@ -1,0 +1,54 @@
+﻿<Page x:Class="StorageApp.Pages.EmployeeTasks"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:StorageApp.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TasksPage">
+
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <StackPanel Margin="0,0,0,0" Background="#A669C8" Height="400">
+            <TextBlock HorizontalAlignment="Center" FontSize="25">ЗАДАЧИ</TextBlock>
+            <StackPanel Margin="20,0,0,10">
+                <TextBlock FontSize="20" Margin="0,0,0,10">Выполняется</TextBlock>
+                <ListView x:Name="lvInProgress"
+                              Background="#B2E55E"
+                              Height="140"
+                                SelectionChanged="lvInProgress_SelectionChanged">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Название}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+
+            <StackPanel Margin="20,0,0,10">
+                <TextBlock FontSize="20" Margin="0,0,0,10">Выполненные</TextBlock>
+                <ListView x:Name="lvFinished"
+                              Background="#B2E55E"
+                              Height="140"
+                              Foreground="White"
+                              FontSize="15"
+                              FontWeight="Bold" SelectionChanged="lvFinished_SelectionChanged">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Название}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

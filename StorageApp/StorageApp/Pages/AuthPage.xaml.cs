@@ -45,8 +45,17 @@ namespace StorageApp.Pages
                     myMessageQueue.Enqueue("Неверный пароль!");
                     return;
                 }
+
                 App.CurrentUser = user;
-                NavigationService.Navigate(new AdminTasksPage(false));
+
+                if (user.ID_роли == 1)
+                {
+                    NavigationService.Navigate(new EmployeeTasksPage(false));
+                }
+                else
+                {
+                    NavigationService.Navigate(new AdminTasksPage(false));
+                }
             }
             catch
             {

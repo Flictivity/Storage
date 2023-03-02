@@ -132,6 +132,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\EmployeeTaskPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\EmployeeTasks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\EmployeeTasksPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\RegPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -155,6 +167,15 @@
     </Compile>
     <Compile Include="Pages\CreateTaskPage.xaml.cs">
       <DependentUpon>CreateTaskPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EmployeeTaskPage.xaml.cs">
+      <DependentUpon>EmployeeTaskPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EmployeeTasks.xaml.cs">
+      <DependentUpon>EmployeeTasks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EmployeeTasksPage.xaml.cs">
+      <DependentUpon>EmployeeTasksPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\RegPage.xaml.cs">
       <DependentUpon>RegPage.xaml</DependentUpon>
