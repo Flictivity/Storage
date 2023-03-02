@@ -75,6 +75,8 @@
             <TextBox x:Name="tbEmail"></TextBox>
             <TextBlock Text="Пароль"></TextBlock>
             <TextBox x:Name="tbPassword"></TextBox>
+            <TextBlock Text="Специальность"></TextBlock>
+            <TextBox x:Name="tbProfession"></TextBox>
             <Popup x:Name="popupPassword" StaysOpen="False" Placement="Mouse" MaxWidth="180" AllowsTransparency="True">
                 <StackPanel  Width="180" Background="LightPink" Opacity="0.95" >
                     <TextBlock TextWrapping="Wrap">

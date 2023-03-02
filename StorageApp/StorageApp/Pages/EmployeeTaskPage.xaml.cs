@@ -38,11 +38,11 @@ namespace StorageApp.Pages
             tbStartDate.Text = task.Начало_выполнения.ToString();
             tbEndDate.Text = task.Окончание_выполнения.ToString();
             tbEstimation.Text = task.Оценка_выполнения.ToString();
-            tbAdmin.Text = task.Работники1?.ФИО_работника;
-            tbEmployee.Text = task.Работники?.ФИО_работника;
+            tbAdmin.Text = task.Работники?.ФИО_работника;
+            tbEmployee.Text = task.Работники1?.ФИО_работника;
             tblTimer.Text = task.Время_выполнения.ToString();
 
-            if (task.Работники != null)
+            if (task.Работники1 != null)
             {
                 btAccept.Visibility = Visibility.Collapsed;
             }
@@ -79,7 +79,7 @@ namespace StorageApp.Pages
 
         private void EventAccept(object sender, RoutedEventArgs e)
         {
-            _currentTask.Работники = App.Context.Работники.FirstOrDefault(x => x.ID_пользователя == App.CurrentUser.ID_пользователя);
+            _currentTask.Работники1 = App.Context.Работники.FirstOrDefault(x => x.ID_пользователя == App.CurrentUser.ID_пользователя);
             _currentTask.Начало_выполнения = DateTime.Now;
             App.Context.SaveChanges();
 

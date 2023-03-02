@@ -45,11 +45,13 @@ namespace StorageApp.Pages
                     !string.IsNullOrEmpty(tbPatronymic.Text) &&
                     !string.IsNullOrEmpty(tbEmail.Text) &&
                     !string.IsNullOrEmpty(tbPassword.Text) &&
+                    !string.IsNullOrEmpty(tbProfession.Text) &&
                     cbRoles.SelectedItem != null)
                 {
                     if (!CheckPassword(tbPassword.Text))
                     {
                         popupPassword.IsOpen = true;
+                        return;
                     }
 
                     if (!cbAgree.IsChecked.Value || !cbNotRobot.IsChecked.Value)
@@ -76,7 +78,7 @@ namespace StorageApp.Pages
                     Работники newEmployee = new Работники()
                     {
                         ФИО_работника = $"{tbSurname.Text} {tbName.Text} {tbPatronymic}",
-                        Специальность = "Кладовщик",
+                        Специальность = tbProfession.Text,
                         ID_пользователя = newUser.ID_пользователя
                     };
 
