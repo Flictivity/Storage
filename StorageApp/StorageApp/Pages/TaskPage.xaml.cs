@@ -27,6 +27,10 @@ namespace StorageApp.Pages
     public partial class TaskPage : Page
     {
         private Задачи _task;
+        private TimeSpan _exTime;
+        private DispatcherTimer _timer;
+        private bool _isRunning;
+
         public TaskPage(Задачи task)
         {
             InitializeComponent();
@@ -51,11 +55,11 @@ namespace StorageApp.Pages
 
             try
             {
-                var startTime = new TimeSpan(0, _task.Начало_выполнения.Value.Hour, _task.Начало_выполнения.Value.Minute,
+                var startTime = new TimeSpan(_task.Начало_выполнения.Value.Day, _task.Начало_выполнения.Value.Hour, _task.Начало_выполнения.Value.Minute,
                 _task.Начало_выполнения.Value.Second);
-                var endTime = new TimeSpan(0, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                var endTime = new TimeSpan(DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 var time = (TimeSpan)task.Время_выполнения;
-                App.ExTime = time - endTime - startTime;
+                _exTime = time - (endTime - startTime);
                 StartTimer();
             }
             catch
@@ -66,14 +70,16 @@ namespace StorageApp.Pages
 
         private async void StartTimer()
         {
-            App.Timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            if (_isRunning) return;
+            _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
-                tblTimer.Text = App.ExTime.ToString("c");
-                if (App.ExTime == TimeSpan.Zero) App.Timer.Stop();
-                App.ExTime = App.ExTime.Add(TimeSpan.FromSeconds(-1));
+                tblTimer.Text = _exTime.ToString("c");
+                if (_exTime == TimeSpan.Zero) _timer.Stop();
+                _exTime = _exTime.Add(TimeSpan.FromSeconds(-1));
             }, Application.Current.Dispatcher);
 
-            App.Timer.Start();
+            _timer.Start();
+            _isRunning = true;
         }
 
         private void Event_Back(object sender, RoutedEventArgs e)

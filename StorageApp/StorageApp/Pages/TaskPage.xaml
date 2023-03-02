@@ -56,7 +56,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold">Оценка:</TextBlock>
-                <TextBox x:Name="tbEstimation" FontSize="20" Foreground="White">5</TextBox>
+                <TextBox x:Name="tbEstimation" FontSize="20" Foreground="White" Width="30" HorizontalContentAlignment="Center">5</TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold">Исполнитель</TextBlock>
