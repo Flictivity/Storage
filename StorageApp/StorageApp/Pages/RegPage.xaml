@@ -13,7 +13,7 @@
         <Style TargetType="TextBox">
             <Setter Property="Foreground" Value="#000000"></Setter>
             <Setter Property="Background" Value="#D9D9D9"></Setter>
-            <Setter Property="Margin" Value="10,5,10,5"></Setter>
+            <Setter Property="Margin" Value="10,0,10,0"></Setter>
             <Setter Property="Padding" Value="5"></Setter>
             <Setter Property="FontSize" Value="15"></Setter>
             <Setter Property="Height" Value="30"></Setter>
@@ -27,7 +27,7 @@
         <Style TargetType="ComboBox">
             <Setter Property="Foreground" Value="#000000"></Setter>
             <Setter Property="Background" Value="#D9D9D9"></Setter>
-            <Setter Property="Margin" Value="10,5,10,5"></Setter>
+            <Setter Property="Margin" Value="10,0,10,0"></Setter>
             <Setter Property="Padding" Value="5"></Setter>
             <Setter Property="FontSize" Value="15"></Setter>
             <Setter Property="Height" Value="30"></Setter>

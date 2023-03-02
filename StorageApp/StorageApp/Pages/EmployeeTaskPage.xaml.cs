@@ -63,6 +63,11 @@ namespace StorageApp.Pages
             {
                 myMessageQueue.Enqueue("Произошла ошибка при загрузке");
             }
+
+            if (task.Состояние_работы)
+            {
+                spTime.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async void StartTimer()
@@ -83,7 +88,7 @@ namespace StorageApp.Pages
             _currentTask.Начало_выполнения = DateTime.Now;
             App.Context.SaveChanges();
 
-            NavigationService.Navigate(new EmployeeTasksPage(false));
+            NavigationService.Navigate(new EmployeeTasks());
         }
 
         private void EventGoBack(object sender, RoutedEventArgs e)

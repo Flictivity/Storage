@@ -89,7 +89,7 @@ namespace StorageApp.Pages
 
         private void lvAvailableTasks_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            NavigationService.Navigate(new EmployeeTaskPage((Задачи) lvAvailableTasks.SelectedItem));
+            InfoFrame.NavigationService.Navigate(new EmployeeTaskPage((Задачи) lvAvailableTasks.SelectedItem));
         }
     }
 }
