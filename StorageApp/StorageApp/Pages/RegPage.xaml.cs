@@ -77,7 +77,7 @@ namespace StorageApp.Pages
 
                     Работники newEmployee = new Работники()
                     {
-                        ФИО_работника = $"{tbSurname.Text} {tbName.Text} {tbPatronymic}",
+                        ФИО_работника = $"{tbSurname.Text} {tbName.Text} {tbPatronymic.Text}",
                         Специальность = tbProfession.Text,
                         ID_пользователя = newUser.ID_пользователя
                     };
