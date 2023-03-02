@@ -82,6 +82,7 @@ namespace StorageApp.Pages
 
                     App.Context.Пользователи.Add(newUser);
                     App.Context.Работники.Add(newEmployee);
+                    App.Context.Рейтинг.Add(new Рейтинг { Работники = newEmployee, Значение = (decimal)1.00 });
 
                     App.Context.SaveChanges();
 

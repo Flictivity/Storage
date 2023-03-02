@@ -16,7 +16,7 @@ namespace StorageApp
     /// </summary>
     public partial class App : Application
     {
-        public static StorageEntities Context = new StorageEntities();
+        public static StorageAppEntities Context = new StorageAppEntities();
         public static Пользователи CurrentUser { get; set; }
 
         public static TimeSpan ExTime; 

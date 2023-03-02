@@ -55,8 +55,8 @@
                     </StackPanel>
                 </StackPanel>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                <Button Margin="0,0,20,0" Width="200" Height="30">Задачи</Button>
-                <Button Margin="0,0,20,0" Width="200" Height="30">Рейтинг</Button>
+                <Button Margin="0,0,20,0" Width="200" Height="30" Click="Button_Click">Задачи</Button>
+                <Button Margin="0,0,20,0" Width="200" Height="30" Click="Button_Click_1">Рейтинг</Button>
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">

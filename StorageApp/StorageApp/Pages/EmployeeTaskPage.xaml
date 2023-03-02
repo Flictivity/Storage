@@ -82,8 +82,9 @@
                     Height="30" Click="EventGoBack"></Button>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <materialDesign:Snackbar x:Name="MySnackbar" Background="Red"/>
             <TextBlock FontSize="25" HorizontalAlignment="Center">Осталось времени</TextBlock>
-            <TextBlock x:Name="tbTimer" HorizontalAlignment="Center" FontSize="70">20:00</TextBlock>
+            <TextBlock x:Name="tblTimer" HorizontalAlignment="Center" FontSize="70">20:00</TextBlock>
         </StackPanel>
     </Grid>
 </Page>

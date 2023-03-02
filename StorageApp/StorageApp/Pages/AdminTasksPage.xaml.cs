@@ -42,6 +42,7 @@ namespace StorageApp.Pages
 
             var emp = App.Context.Работники.FirstOrDefault(x => x.ID_пользователя == App.CurrentUser.ID_пользователя);
 
+            Rating.Text = App.Context.Рейтинг.FirstOrDefault(x => x.ID_работника == emp.ID_работника).Значение.ToString();            
             var empData = emp.ФИО_работника.Split();
             tblN.Text = empData[1].ToString();
             tblS.Text = empData[0].ToString();
@@ -74,6 +75,16 @@ namespace StorageApp.Pages
         private void Event_CreateTaskPage(object sender, RoutedEventArgs e)
         {
             InfoFrame.Navigate(new CreateTaskPage());
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            InfoFrame.Navigate(new TasksPage());
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            InfoFrame.Navigate(new EmployeeRatingPage());
         }
     }
 }

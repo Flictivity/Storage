@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:StorageApp.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="TasksPage">
 
     <Page.Resources>
@@ -14,40 +14,47 @@
         </Style>
     </Page.Resources>
     <Grid>
-        <StackPanel Margin="0,0,0,0" Background="#A669C8" Height="400">
+        <StackPanel Margin="0,0,0,0" Background="#A669C8" Height="800">
             <TextBlock HorizontalAlignment="Center" FontSize="25">ЗАДАЧИ</TextBlock>
             <StackPanel Margin="20,0,0,10">
                 <TextBlock FontSize="20" Margin="0,0,0,10">Выполняется</TextBlock>
-                <ListView x:Name="lvInProgress"
-                              Background="#B2E55E"
-                              Height="140"
-                                SelectionChanged="lvInProgress_SelectionChanged">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="{Binding Название}"></TextBlock>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <StackPanel Background="#B2E55E" Opacity="0.9">
+                    <ListView x:Name="lvInProgress"
+                              Height="230"
+                              Foreground="White"
+                              FontSize="15"
+                              FontWeight="Bold"
+                              SelectionChanged="lvInProgress_SelectionChanged">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Margin="20" Text="{Binding Название}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
             </StackPanel>
 
             <StackPanel Margin="20,0,0,10">
                 <TextBlock FontSize="20" Margin="0,0,0,10">Выполненные</TextBlock>
-                <ListView x:Name="lvFinished"
+                <StackPanel Background="#E55E5E" Opacity="0.9">
+                    <ListView x:Name="lvFinished"
                               Background="#B2E55E"
-                              Height="140"
+                              Height="230"
                               Foreground="White"
                               FontSize="15"
-                              FontWeight="Bold" SelectionChanged="lvFinished_SelectionChanged">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="{Binding Название}"></TextBlock>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                              FontWeight="Bold"
+                              SelectionChanged="lvFinished_SelectionChanged">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="20" Text="{Binding Название}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
     </Grid>

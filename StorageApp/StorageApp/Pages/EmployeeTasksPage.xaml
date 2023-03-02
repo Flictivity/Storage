@@ -44,7 +44,7 @@
                 <StackPanel Margin="0,0,5,0">
                     <Button Width="60" Height="60">
                         <Button.Background>
-                            <ImageBrush Stretch="Fill" ImageSource="/Images/adm-icon.png"/>
+                            <ImageBrush Stretch="Fill" ImageSource="/Images/emp-icon.png"/>
                         </Button.Background>
                     </Button>
                 </StackPanel>
@@ -55,7 +55,6 @@
             </StackPanel>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                 <Button Margin="0,0,20,0" Width="200" Height="30" Click="EventShowAvailableTasks">Задачи</Button>
-                <Button Margin="0,0,20,0" Width="200" Height="30">Рейтинг</Button>
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
@@ -67,7 +66,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="3*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Margin="10,0,10,0" Background="#A669C8" Height="400">
+            <StackPanel Grid.Column="0" Margin="10,0,10,0" Background="#A669C8" Height="600">
                 <TextBlock HorizontalAlignment="Center" FontSize="25">ВАШ РЕЙТИНГ</TextBlock>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Image Source="/Images/star 1.png" Margin="0,0,5,0"/>
@@ -92,8 +91,10 @@
                     </ListView>
                 </StackPanel>
             </StackPanel>
-            <Frame x:Name="InfoFrame" NavigationUIVisibility="Hidden" Grid.Row="1" Grid.Column="1" Height="400" Background="#A669C8">
-            </Frame>
+            <ScrollViewer Grid.Row="1" Grid.Column="1">
+                <Frame x:Name="InfoFrame" NavigationUIVisibility="Hidden"  Height="600" Background="#A669C8">
+                </Frame>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Page>

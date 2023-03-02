@@ -56,6 +56,7 @@ namespace StorageApp.Pages
                 .ToList();
 
             lvAvailableTasks.ItemsSource = tasks;
+            Rating.Text = raiting.Значение.ToString();
 
             InfoFrame.NavigationService.Navigate(new EmployeeTasks());
 
