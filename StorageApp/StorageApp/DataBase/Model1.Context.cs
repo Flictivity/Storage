@@ -13,10 +13,10 @@ namespace StorageApp.DataBase
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class StorageEntities : DbContext
+    public partial class StorageAppEntities : DbContext
     {
-        public StorageEntities()
-            : base("name=StorageEntities")
+        public StorageAppEntities()
+            : base("name=StorageAppEntities")
         {
         }
     

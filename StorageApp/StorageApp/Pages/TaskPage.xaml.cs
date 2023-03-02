@@ -71,6 +71,10 @@ namespace StorageApp.Pages
         private async void StartTimer()
         {
             if (_isRunning) return;
+            if(_exTime < TimeSpan.Zero)
+            {
+                _exTime = TimeSpan.Zero;
+            }
             _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
                 tblTimer.Text = _exTime.ToString("c");
@@ -104,6 +108,7 @@ namespace StorageApp.Pages
         {
             App.Context.Задачи.Remove(_task);
             App.Context.SaveChanges();
+            NavigationService.Navigate(new TasksPage());
         }
     }
 }
