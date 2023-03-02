@@ -12,11 +12,13 @@
           <Property Name="ID задачи" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Сложность задачи" Type="int" Nullable="false" />
           <Property Name="Состояние работы" Type="bit" Nullable="false" />
-          <Property Name="Начало выполнения" Type="date" Nullable="false" />
+          <Property Name="Начало выполнения" Type="date" />
           <Property Name="Окончание выполнения" Type="date" />
-          <Property Name="Оценка выполнения" Type="int" Nullable="false" />
+          <Property Name="Оценка выполнения" Type="int" />
           <Property Name="ID работника" Type="bigint" />
           <Property Name="ID администратора" Type="bigint" />
+          <Property Name="Название" Type="varchar" MaxLength="100" />
+          <Property Name="Время выполнения" Type="time" Precision="7" />
         </EntityType>
         <EntityType Name="Пользователи">
           <Key>
@@ -40,7 +42,6 @@
           <Key>
             <PropertyRef Name="ID рейтинга" />
           </Key>
-
           <Property Name="ID рейтинга" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Значение" Type="decimal" Precision="4" Scale="2" Nullable="false" />
           <Property Name="ID работника" Type="bigint" />
@@ -52,7 +53,7 @@
           <Property Name="ID роли" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Название роли" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Задачи_Работники1">
+        <Association Name="FK_Задачи_Работники">
           <End Role="Работники" Type="Self.Работники" Multiplicity="0..1" />
           <End Role="Задачи" Type="Self.Задачи" Multiplicity="*" />
           <ReferentialConstraint>
@@ -61,6 +62,18 @@
             </Principal>
             <Dependent Role="Задачи">
               <PropertyRef Name="ID работника" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Задачи_Работники2">
+          <End Role="Работники" Type="Self.Работники" Multiplicity="0..1" />
+          <End Role="Задачи" Type="Self.Задачи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Работники">
+              <PropertyRef Name="ID работника" />
+            </Principal>
+            <Dependent Role="Задачи">
+              <PropertyRef Name="ID администратора" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -106,7 +119,11 @@
           <EntitySet Name="Работники" EntityType="Self.Работники" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Рейтинг" EntityType="Self.Рейтинг" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Роли" EntityType="Self.Роли" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Задачи_Работники1" Association="Self.FK_Задачи_Работники1">
+          <AssociationSet Name="FK_Задачи_Работники" Association="Self.FK_Задачи_Работники">
+            <End Role="Работники" EntitySet="Работники" />
+            <End Role="Задачи" EntitySet="Задачи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Задачи_Работники2" Association="Self.FK_Задачи_Работники2">
             <End Role="Работники" EntitySet="Работники" />
             <End Role="Задачи" EntitySet="Задачи" />
           </AssociationSet>
@@ -128,13 +145,16 @@
     <edmx:ConceptualModels>
       <Schema Namespace="lab14Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="StorageEntities" annotation:LazyLoadingEnabled="true">
-
           <EntitySet Name="Задачи" EntityType="lab14Model.Задачи" />
           <EntitySet Name="Пользователи" EntityType="lab14Model.Пользователи" />
           <EntitySet Name="Работники" EntityType="lab14Model.Работники" />
           <EntitySet Name="Рейтинг" EntityType="lab14Model.Рейтинг" />
           <EntitySet Name="Роли" EntityType="lab14Model.Роли" />
-          <AssociationSet Name="FK_Задачи_Работники1" Association="lab14Model.FK_Задачи_Работники1">
+          <AssociationSet Name="FK_Задачи_Работники" Association="lab14Model.FK_Задачи_Работники">
+            <End Role="Работники" EntitySet="Работники" />
+            <End Role="Задачи" EntitySet="Задачи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Задачи_Работники2" Association="lab14Model.FK_Задачи_Работники2">
             <End Role="Работники" EntitySet="Работники" />
             <End Role="Задачи" EntitySet="Задачи" />
           </AssociationSet>
@@ -158,12 +178,15 @@
           <Property Name="ID_задачи" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Сложность_задачи" Type="Int32" Nullable="false" />
           <Property Name="Состояние_работы" Type="Boolean" Nullable="false" />
-          <Property Name="Начало_выполнения" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Начало_выполнения" Type="DateTime" Precision="0" />
           <Property Name="Окончание_выполнения" Type="DateTime" Precision="0" />
-          <Property Name="Оценка_выполнения" Type="Int32" Nullable="false" />
+          <Property Name="Оценка_выполнения" Type="Int32" />
           <Property Name="ID_работника" Type="Int64" />
-          <NavigationProperty Name="Работники" Relationship="lab14Model.FK_Задачи_Работники1" FromRole="Задачи" ToRole="Работники" />
           <Property Name="ID_администратора" Type="Int64" />
+          <Property Name="Название" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Время_выполнения" Type="Time" Precision="7" />
+          <NavigationProperty Name="Работники" Relationship="lab14Model.FK_Задачи_Работники" FromRole="Задачи" ToRole="Работники" />
+          <NavigationProperty Name="Работники1" Relationship="lab14Model.FK_Задачи_Работники2" FromRole="Задачи" ToRole="Работники" />
         </EntityType>
         <EntityType Name="Пользователи">
           <Key>
@@ -184,7 +207,8 @@
           <Property Name="ФИО_работника" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Специальность" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ID_пользователя" Type="Int64" />
-          <NavigationProperty Name="Задачи" Relationship="lab14Model.FK_Задачи_Работники1" FromRole="Работники" ToRole="Задачи" />
+          <NavigationProperty Name="Задачи" Relationship="lab14Model.FK_Задачи_Работники" FromRole="Работники" ToRole="Задачи" />
+          <NavigationProperty Name="Задачи1" Relationship="lab14Model.FK_Задачи_Работники2" FromRole="Работники" ToRole="Задачи" />
           <NavigationProperty Name="Пользователи" Relationship="lab14Model.FK_Работники_Пользователи" FromRole="Работники" ToRole="Пользователи" />
           <NavigationProperty Name="Рейтинг" Relationship="lab14Model.FK_Рейтинг_Работники" FromRole="Работники" ToRole="Рейтинг" />
         </EntityType>
@@ -192,7 +216,6 @@
           <Key>
             <PropertyRef Name="ID_рейтинга" />
           </Key>
-
           <Property Name="ID_рейтинга" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Значение" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
           <Property Name="ID_работника" Type="Int64" />
@@ -206,7 +229,7 @@
           <Property Name="Название_роли" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Пользователи" Relationship="lab14Model.FK_Пользователи_Роли" FromRole="Роли" ToRole="Пользователи" />
         </EntityType>
-        <Association Name="FK_Задачи_Работники1">
+        <Association Name="FK_Задачи_Работники">
           <End Type="lab14Model.Работники" Role="Работники" Multiplicity="0..1" />
           <End Type="lab14Model.Задачи" Role="Задачи" Multiplicity="*" />
           <ReferentialConstraint>
@@ -215,6 +238,18 @@
             </Principal>
             <Dependent Role="Задачи">
               <PropertyRef Name="ID_работника" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Задачи_Работники2">
+          <End Type="lab14Model.Работники" Role="Работники" Multiplicity="0..1" />
+          <End Type="lab14Model.Задачи" Role="Задачи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Работники">
+              <PropertyRef Name="ID_работника" />
+            </Principal>
+            <Dependent Role="Задачи">
+              <PropertyRef Name="ID_администратора" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -254,7 +289,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -263,6 +298,8 @@
           <EntitySetMapping Name="Задачи">
             <EntityTypeMapping TypeName="lab14Model.Задачи">
               <MappingFragment StoreEntitySet="Задачи">
+                <ScalarProperty Name="Время_выполнения" ColumnName="Время выполнения" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
                 <ScalarProperty Name="ID_администратора" ColumnName="ID администратора" />
                 <ScalarProperty Name="ID_работника" ColumnName="ID работника" />
                 <ScalarProperty Name="Оценка_выполнения" ColumnName="Оценка выполнения" />

@@ -18,6 +18,7 @@ namespace StorageApp.DataBase
         public Работники()
         {
             this.Задачи = new HashSet<Задачи>();
+            this.Задачи1 = new HashSet<Задачи>();
             this.Рейтинг = new HashSet<Рейтинг>();
         }
     
@@ -28,6 +29,8 @@ namespace StorageApp.DataBase
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Задачи> Задачи { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Задачи> Задачи1 { get; set; }
         public virtual Пользователи Пользователи { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Рейтинг> Рейтинг { get; set; }
