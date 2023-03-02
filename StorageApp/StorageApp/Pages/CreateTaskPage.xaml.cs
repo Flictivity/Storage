@@ -57,7 +57,7 @@ namespace StorageApp.Pages
 
                     App.Context.SaveChanges();
 
-                    NavigationService.GoBack();
+                    NavigationService.Navigate(new TasksPage());
                 }
                 else
                 {

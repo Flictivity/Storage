@@ -1,4 +1,5 @@
-﻿using StorageApp.DataBase;
+﻿using MaterialDesignThemes.Wpf;
+using StorageApp.DataBase;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -45,12 +46,22 @@ namespace StorageApp.Pages
             cbEmployee.SelectedItem = _task.Работники;
             tblTimer.Text = _task.Время_выполнения.ToString();
 
-            var startTime = new TimeSpan(0, _task.Начало_выполнения.Value.Hour, _task.Начало_выполнения.Value.Minute,
+            var myMessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
+            MySnackbar.MessageQueue = myMessageQueue;
+
+            try
+            {
+                var startTime = new TimeSpan(0, _task.Начало_выполнения.Value.Hour, _task.Начало_выполнения.Value.Minute,
                 _task.Начало_выполнения.Value.Second);
-            var endTime = new TimeSpan(0, DateTime.Now.Hour, DateTime.Now.Minute,DateTime.Now.Second);
-            var time = (TimeSpan)task.Время_выполнения;
-            App.ExTime = time - endTime - startTime;
-            StartTimer();
+                var endTime = new TimeSpan(0, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                var time = (TimeSpan)task.Время_выполнения;
+                App.ExTime = time - endTime - startTime;
+                StartTimer();
+            }
+            catch
+            {
+                myMessageQueue.Enqueue("Произошла ошибка при загрузке");
+            }
         }
 
         private async void StartTimer()
@@ -75,11 +86,18 @@ namespace StorageApp.Pages
             _task.Название = tbName.Text;
             _task.Сложность_задачи = int.Parse(tbDifficult.Text);
             _task.Состояние_работы = (bool)chbIsFinished.IsChecked;
-            _task.Начало_выполнения = dpStartTime.SelectedDate;
-            _task.Окончание_выполнения = dpEndDate.SelectedDate;
+            if(_task.Состояние_работы)
+            {
+                _task.Окончание_выполнения = DateTime.Now;
+            }
             _task.Оценка_выполнения = int.Parse(tbEstimation.Text);
-            _task.Работники1 = (Работники)cbAdmin.SelectedItem;
             _task.Работники = (Работники)cbEmployee.SelectedItem;
+        }
+
+        private void Event_RemoveTask(object sender, RoutedEventArgs e)
+        {
+            App.Context.Задачи.Remove(_task);
+            App.Context.SaveChanges();
         }
     }
 }
